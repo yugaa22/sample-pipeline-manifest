@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    release: '${parameters.release}'
+  name: 'nginx-deployment-${parameters.release}'
+spec:
+  minReadySeconds: 5
+  selector:
+    matchLabels:
+      app: nginx
+      release: '${parameters.release}'
+  template:
+    metadata:
+      labels:
+        app: nginx
+        release: '${parameters.release}'
+    spec:
+      containers:
+        - image: 'nginx:1.7.9'
+          name: nginx
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: '${parameters.service_name}'
+  namespace: default
+spec:
+  ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 80
+  selector:
+    app: nginx
+    release: '${parameters.release}'
+
