@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: opsmx-testjira-production
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: opsmx-kube-deploys
+  template:
+    metadata:
+      labels:
+        app: opsmx-kube-deploys
+    spec:
+      containers:
+        - image: 'docker.io/opsmx11/restapp:${parameters.version}'
+          imagePullPolicy: Always
+          name: restapp
+          ports:
+            - containerPort: 8080
+              name: http
+              protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: opsmx-svc-prod
+spec:
+  ports:
+    - name: canary
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    app: opsmx-kube-deploys
+  type: LoadBalancer
+
