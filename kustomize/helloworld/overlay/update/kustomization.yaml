@@ -1,0 +1,5 @@
+namePrefix: update
+bases:
+- ../../base
+patchesStrategicMerge:
+- configmap.yaml
