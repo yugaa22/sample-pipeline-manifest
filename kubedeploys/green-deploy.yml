@@ -17,8 +17,11 @@ spec:
         release: '${parameters.green_release}'
     spec:
       containers:
-        - image: 'nginx:1.7.9'
-          name: nginx
+        - image: 'quay.io/opsmxpublic/simple-webapp:v2'
+          name: webapp-green
+          env:
+          - name: APP_COLOR
+            value: green
           ports:
-            - containerPort: 80
+            - containerPort: 8080
 
