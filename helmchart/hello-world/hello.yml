@@ -1,0 +1,41 @@
+---
+# Source: hello-world/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: RELEASE-NAME-service
+  namespace: default
+spec:
+  type: NodePort
+  ports:
+    - name: http
+      port: 9090
+      targetPort: 8080
+      protocol: TCP
+  selector:
+    app: hello-world
+---
+# Source: hello-world/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment 
+metadata:
+  name: RELEASE-NAME-deployment
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello-world
+  template:
+    metadata:
+      labels:
+        app: hello-world
+    spec:
+      containers:
+        - name: helmchart-demo-http
+          image: "sagayd/hellohtml:latest"
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+              name: http
+              protocol: TCP
