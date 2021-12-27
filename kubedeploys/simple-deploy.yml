@@ -16,7 +16,7 @@ spec:
         app: simple-app1
     spec:
       containers:
-        - image: 'index.docker.io/opsmx11/restapp:simple-1.0'
+        - image: 'docker.io/opsmx11/restapp:simple-1.0'
           imagePullPolicy: Always
           name: restapp
           ports:
