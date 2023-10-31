@@ -5,6 +5,5 @@ commonLabels:
 
 resources:
 - deployment.yaml
-- https://github.com/yugaa22/sample-pipeline-manifest/tree/main/kustomize/helloworld/overlay/update
 - service.yaml
 - configMap.yaml
